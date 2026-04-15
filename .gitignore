@@ -2,6 +2,12 @@
 
 !*/
 
+tensorboard_env/
+logs/
+log/
+cache/
+main/cache/
+
 !*.py
 !*.html
 !*.css
