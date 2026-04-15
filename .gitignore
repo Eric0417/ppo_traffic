@@ -1,5 +1,12 @@
 *
+
 !*/
+
 !*.py
+!*.html
+!*.css
+!*.js
+!*.json
+
 !.gitignore
 !README.md

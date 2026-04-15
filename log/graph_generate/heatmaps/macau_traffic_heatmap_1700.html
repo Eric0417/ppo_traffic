@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_697798c6644a6fc71ef189d81b8528f5 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+</head>
+<body>
+    
+    
+             <h3 align="center" style="font-size:20px; color:white; margin-top: 10px;">
+             <b>澳門路網熱力圖 - 平均時間 17:00</b>
+             </h3>
+             
+    
+            <div class="folium-map" id="map_697798c6644a6fc71ef189d81b8528f5" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_697798c6644a6fc71ef189d81b8528f5 = L.map(
+                "map_697798c6644a6fc71ef189d81b8528f5",
+                {
+                    center: [22.195, 113.545],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 14,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_b00e1be993fa97daa15699825a2cd0d3 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_b00e1be993fa97daa15699825a2cd0d3.addTo(map_697798c6644a6fc71ef189d81b8528f5);
+        
+    
+            var heat_map_6e329f4386de29ccbd5cc7253dd522e0 = L.heatLayer(
+                [[22.20533, 113.54436, 0.4247085722477065], [22.21027, 113.54734, 0.15484389334862386], [22.20401, 113.54255, 0.54276376146789], [22.20525, 113.54427, 0.4067650516055046], [22.20248, 113.53801, 0.31594165711009176], [22.21059, 113.55409, 0.535497133027523], [22.20665, 113.55256, 0.4963312786697248], [22.20866, 113.56081, 0.30282368119266057], [22.20474, 113.5606, 0.39282640481651376], [22.20563, 113.55812, 0.5205549025229358], [22.20573, 113.55884, 0.4147901376146789], [22.21385, 113.55444, 0.5345678038990825], [22.21175, 113.55951, 0.5802598910550458], [22.20496, 113.54877, 0.3376664277522936], [22.20938, 113.55765, 0.4314144208715596], [22.20613, 113.55738, 0.31082554472477064], [22.20669, 113.55032, 0.18363159403669724], [22.212, 113.555, 0.5654594323394495], [22.19077, 113.5487, 0.4650235091743119], [22.19606, 113.55367, 0.40963890481651377], [22.19674, 113.55192, 0.10515180619266055], [22.19619, 113.55196, 0.4216073681192661], [22.19006, 113.55043, 0.3750139048165138], [22.18946, 113.54977, 0.3220563360091743], [22.18585, 113.54943, 0.5080070240825688], [22.18239, 113.54111, 0.23136539564220185], [22.18146, 113.53839, 0.05819739105504587], [22.18044, 113.53762, 0.06301175458715597], [22.2029, 113.54709, 0.35066556766055046], [22.19639, 113.5465, 0.37271559633027523], [22.20625, 113.54715, 0.2511747419724771], [22.19889, 113.55073, 0.3597518635321101], [22.20191, 113.55247, 0.4265358371559633], [22.19768, 113.54638, 0.2883661123853211], [22.19405, 113.54369, 0.308364248853211], [22.20314, 113.54033, 0.5282274942660551], [22.18895, 113.54317, 0.4221935206422019], [22.1899, 113.54339, 0.27121774655963304], [22.18944, 113.54336, 0.509313503440367], [22.19105, 113.53927, 0.5350689506880734], [22.19224, 113.54096, 0.12180533256880734], [22.19219, 113.54089, 0.45823150802752294], [22.19765, 113.53669, 0.5083834575688073], [22.19234, 113.54081, 0.2965911697247706], [22.19111, 113.54202, 0.4227446961009174], [22.18993, 113.54341, 0.29018678325688074], [22.19273, 113.5434, 0.4092795298165138], [22.2025, 113.53806, 0.47250043004587156], [22.20018, 113.53728, 0.37465825688073395], [22.19829, 113.53657, 0.005357368119266055], [22.20174, 113.53727, 0.3681764621559633], [22.19642, 113.53648, 0.48972720756880733], [22.19225, 113.54085, 0.319131880733945], [22.19108, 113.53459, 0.4498104931192661], [22.19218, 113.534, 0.4824071100917431], [22.18947, 113.53268, 0.5067693520642201], [22.18746, 113.5312, 0.5664972763761468], [22.19011, 113.53309, 0.32482439793577983], [22.1963, 113.53647, 0.5493953555045872], [22.19319, 113.5352, 0.49979343463302756]],
+                {
+  "minOpacity": 0.3,
+  "maxZoom": 1,
+  "radius": 20,
+  "blur": 15,
+}
+            );
+        
+    
+            heat_map_6e329f4386de29ccbd5cc7253dd522e0.addTo(map_697798c6644a6fc71ef189d81b8528f5);
+        
+</script>
+</html>
