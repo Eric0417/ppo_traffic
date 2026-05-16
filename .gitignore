@@ -16,3 +16,14 @@ main/cache/
 
 !.gitignore
 !README.md
+!CLAUDE.md
+!requirements.txt
+
+# Temp & runner files
+*CodeRunner*
+*tempCodeRunner*
+
+# Python cache (belt-and-suspenders)
+__pycache__/
+*.pyc
+*.pyo

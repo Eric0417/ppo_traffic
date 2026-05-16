@@ -14,6 +14,9 @@ import numpy as np
 import torch
 from ultralytics import YOLO
 
+from common.camera import StreamCamera
+from common.tracker import clamp_xyxy, iou_xyxy
+
 try:
     import openpyxl  # optional for XLSX
 except Exception:
@@ -93,35 +96,6 @@ def load_streams(path: str, max_n: int) -> list[str]:
     return out
 
 
-def clamp_xyxy(xyxy: np.ndarray, w: int, h: int) -> np.ndarray:
-    x1, y1, x2, y2 = xyxy.astype(np.float32)
-    x1 = float(max(0, min(w - 1, x1)))
-    y1 = float(max(0, min(h - 1, y1)))
-    x2 = float(max(0, min(w - 1, x2)))
-    y2 = float(max(0, min(h - 1, y2)))
-    if x2 < x1:
-        x1, x2 = x2, x1
-    if y2 < y1:
-        y1, y2 = y2, y1
-    return np.array([x1, y1, x2, y2], dtype=np.float32)
-
-
-def iou_xyxy(a: np.ndarray, b: np.ndarray) -> float:
-    ax1, ay1, ax2, ay2 = a
-    bx1, by1, bx2, by2 = b
-    x1 = max(ax1, bx1)
-    y1 = max(ay1, by1)
-    x2 = min(ax2, bx2)
-    y2 = min(ay2, by2)
-    iw = max(0.0, x2 - x1)
-    ih = max(0.0, y2 - y1)
-    inter = iw * ih
-    area_a = max(0.0, ax2 - ax1) * max(0.0, ay2 - ay1)
-    area_b = max(0.0, bx2 - bx1) * max(0.0, by2 - by1)
-    union = area_a + area_b - inter
-    return float(inter / union) if union > 1e-6 else 0.0
-
-
 def color_for_id(tid: int) -> tuple[int, int, int]:
     # deterministic BGR
     r = (tid * 37) % 255
@@ -135,80 +109,6 @@ def draw_text_bg(img, text: str, x: int, y: int, scale=0.5, fg=(255, 255, 255), 
     (tw, th), base = cv2.getTextSize(text, font, scale, thickness)
     cv2.rectangle(img, (x, y - th - base - 6), (x + tw + 6, y + 2), bg, -1)
     cv2.putText(img, text, (x + 3, y - 3), font, scale, fg, thickness, cv2.LINE_AA)
-
-
-# =========================
-# Capture
-# =========================
-class StreamCamera:
-    def __init__(self, url: str, name: str, reopen_delay_sec: float = 1.0, read_sleep_sec: float = 0.01):
-        self.url = url
-        self.name = name
-        self.reopen_delay_sec = reopen_delay_sec
-        self.read_sleep_sec = read_sleep_sec
-
-        self.cap = self._open_capture()
-
-        self.ret = False
-        self.frame = None
-        self.lock = threading.Lock()
-
-        self.running = True
-        self.thread = threading.Thread(target=self._update, daemon=True)
-        self.thread.start()
-
-    def _open_capture(self):
-        try:
-            cap = cv2.VideoCapture(self.url, cv2.CAP_FFMPEG)
-        except Exception:
-            cap = cv2.VideoCapture(self.url)
-
-        try:
-            cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
-        except Exception:
-            pass
-        return cap
-
-    def _reopen(self):
-        try:
-            self.cap.release()
-        except Exception:
-            pass
-        self.cap = self._open_capture()
-        time.sleep(self.reopen_delay_sec)
-
-    def _update(self):
-        while self.running:
-            if not self.cap.isOpened():
-                self._reopen()
-                continue
-
-            ret, frame = self.cap.read()
-            with self.lock:
-                self.ret = bool(ret)
-                self.frame = frame if ret else None
-
-            if not ret:
-                self._reopen()
-            else:
-                time.sleep(self.read_sleep_sec)
-
-    def get_frame(self):
-        with self.lock:
-            if not self.ret or self.frame is None:
-                return False, None
-            return True, self.frame.copy()
-
-    def stop(self):
-        self.running = False
-        try:
-            self.thread.join(timeout=2.0)
-        except Exception:
-            pass
-        try:
-            self.cap.release()
-        except Exception:
-            pass
 
 
 # =========================

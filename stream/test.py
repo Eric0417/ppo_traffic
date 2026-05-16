@@ -1,79 +1,10 @@
 import cv2
-import threading
 import numpy as np
 import time
 from pathlib import Path
 from ultralytics import YOLO
 
-
-class StreamCamera:
-    def __init__(self, url: str, name: str, reopen_delay_sec: float = 1.0):
-        self.url = url
-        self.name = name
-        self.reopen_delay_sec = reopen_delay_sec
-
-        self.cap = self._open_capture()
-
-        self.ret = False
-        self.frame = None
-        self.lock = threading.Lock()
-
-        self.running = True
-        self.thread = threading.Thread(target=self.update, daemon=True)
-        self.thread.start()
-
-    def _open_capture(self):
-        # Prefer FFMPEG for HLS/m3u8 when available
-        try:
-            cap = cv2.VideoCapture(self.url, cv2.CAP_FFMPEG)
-        except Exception:
-            cap = cv2.VideoCapture(self.url)
-
-        # Reduce latency if backend supports it
-        try:
-            cap.set(cv2.CAP_PROP_BUFFERSIZE, 2)
-        except Exception:
-            pass
-        return cap
-
-    def _reopen(self):
-        try:
-            self.cap.release()
-        except Exception:
-            pass
-        self.cap = self._open_capture()
-        time.sleep(self.reopen_delay_sec)
-
-    def update(self):
-        while self.running:
-            if not self.cap.isOpened():
-                self._reopen()
-                continue
-
-            ret, frame = self.cap.read()
-            with self.lock:
-                self.ret = bool(ret)
-                self.frame = frame if ret else None
-
-            if not ret:
-                self._reopen()
-            else:
-                time.sleep(0.001)
-
-    def get_frame(self):
-        with self.lock:
-            return self.ret, None if self.frame is None else self.frame.copy()
-
-    def stop(self):
-        self.running = False
-        try:
-            self.thread.join(timeout=2.0)
-        except Exception:
-            pass
-        try:
-            self.cap.release()
-        except Exception:
-            pass
+from common.camera import StreamCamera
 
 
 def main():

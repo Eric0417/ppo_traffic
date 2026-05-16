@@ -18,6 +18,9 @@ import torch
 from ultralytics import YOLO
 from PIL import Image, ImageDraw, ImageFont
 
+from common.camera import StreamCamera
+from common.tracker import iou_xyxy
+
 # 進階路網分析
 try:
     import osmnx as ox
@@ -250,11 +253,6 @@ class Track:
     prev_center: Optional[Tuple[float, float]] = None
     counted: bool = False
 
-def iou_xyxy(a, b):
-    x1, y1 = max(a[0], b[0]), max(a[1], b[1]); x2, y2 = min(a[2], b[2]), min(a[3], b[3])
-    inter = max(0, x2-x1) * max(0, y2-y1); union = (a[2]-a[0])*(a[3]-a[1]) + (b[2]-b[0])*(b[3]-b[1]) - inter
-    return inter / union if union > 0 else 0
-
 class SimpleIOUTracker:
     def __init__(self, iou_th=0.3, max_age=6):
         self.iou_th, self.max_age, self._next_id = iou_th, max_age, 1
@@ -294,20 +292,6 @@ class SimpleIOUTracker:
                 self._next_id += 1
         self.tracks = [tr for tr in self.tracks if tr.time_since_update <= self.max_age]
         return [tr for tr in self.tracks if tr.time_since_update == 0]
-
-class StreamCamera:
-    def __init__(self, url: str, name: str):
-        self.url, self.name = url, name; self.cap = cv2.VideoCapture(url)
-        self.ret, self.frame = False, None; self.lock = threading.Lock()
-        self.running = True; threading.Thread(target=self._update, daemon=True).start()
-    def _update(self):
-        while self.running:
-            ret, frame = self.cap.read()
-            with self.lock: self.ret, self.frame = ret, frame
-            if not ret: time.sleep(1); self.cap = cv2.VideoCapture(self.url)
-    def get_frame(self):
-        with self.lock: return self.ret, (self.frame.copy() if self.ret and self.frame is not None else None)
-    def stop(self): self.running = False
 
 @dataclass
 class CameraState:
