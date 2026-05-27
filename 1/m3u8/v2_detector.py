@@ -590,10 +590,10 @@ def post_macau_traffic_data(states, cloud_url):
                 except Exception:
                     pass  # 節點可能超出圖範圍
 
-        # 熱擴散: 將攝影機數據沿路網傳播
-        node_scores = run_heat_diffusion(MACAU_GRAPH, camera_node_scores)
+        # 熱擴散: 將攝影機數據沿路網傳播 (全澳路網較大, 增加迭代次數)
+        node_scores = run_heat_diffusion(MACAU_GRAPH, camera_node_scores, iterations=60)
 
-        # 建立道路 GeoJSON
+        # 建立道路 GeoJSON (全部道路都輸出, 無數據道路顯示灰色)
         features = []
         for u, v, k, data in MACAU_GRAPH.edges(keys=True, data=True):
             sc = (node_scores[u] + node_scores[v]) / 2.0
@@ -604,17 +604,17 @@ def post_macau_traffic_data(states, cloud_url):
                     [MACAU_GRAPH.nodes[u]['x'], MACAU_GRAPH.nodes[u]['y']],
                     [MACAU_GRAPH.nodes[v]['x'], MACAU_GRAPH.nodes[v]['y']],
                 ]
-            # 只輸出有交通數據的道路 (減少資料量)
-            if sc > 0.01:
-                features.append({
-                    "type": "Feature",
-                    "geometry": {"type": "LineString", "coordinates": coords_data},
-                    "properties": {
-                        "type": "street",
-                        "score": round(sc, 3),
-                        "color": get_color(sc),
-                    },
-                })
+            # 全部道路都輸出, sc=0 顯示暗灰色 (無數據路段)
+            color = get_color(sc) if sc > 0.001 else "#333333"
+            features.append({
+                "type": "Feature",
+                "geometry": {"type": "LineString", "coordinates": coords_data},
+                "properties": {
+                    "type": "street",
+                    "score": round(sc, 3),
+                    "color": color,
+                },
+            })
 
         # 建立攝影機節點 GeoJSON (全部 111 個, 包含無座標的)
         for st in states:
