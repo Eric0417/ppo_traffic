@@ -1,0 +1,318 @@
+# ============================================================
+# 澳門即時交通攝影機 m3u8 串流連結完整清單
+# Macau Real-Time Traffic Camera m3u8 Stream Links
+# ============================================================
+# 來源: https://streaming1.dsatmacau.com/traffic/
+#       https://www.dsat.gov.mo/realtime_core.aspx (全區域)
+# 資料擷取日期: 2026-05-27
+# 總數: 111 個攝影機
+# ============================================================
+# 格式: URL | cam_id | 地點 | 經緯度
+# 前綴說明:
+#   m = 澳門半島一般道路 (Macau Peninsula roads)
+#   p = 港珠澳大橋邊檢大樓周邊 (HZMB Checkpoint)
+#   a = 澳門橋/港珠澳連接道路 (Macau Bridge / HZMB link roads)
+#   t = 氹仔/路環/隧道 (Taipa/Coloane/Tunnels)
+#   h = 橫琴口岸 (Hengqin Port)
+#   b = 跨海大橋 (Cross-sea Bridges)
+#   z = 港珠澳人工島通關車道 (HZMB Artificial Island)
+# ============================================================
+
+# ============================================================
+# 一、澳門半島 - 新馬路/南灣區 (12個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/m2181.m3u8 | cam_id=49 | 新馬路與南灣大馬路交界 | 22.19225, 113.54085
+https://streaming1.dsatmacau.com/traffic/m2086.m3u8 | cam_id=50 | 水坑尾街與南灣大馬路交界路口 | 22.19273, 113.54340
+https://streaming1.dsatmacau.com/traffic/m2070.m3u8 | cam_id=68 | 新馬路與巴素打爾古街交界 | 22.19642, 113.53648
+https://streaming1.dsatmacau.com/traffic/m2134.m3u8 | cam_id=74 | 新馬路(近議事亭前地)向南灣大馬路方向 | 22.19234, 113.54081
+https://streaming1.dsatmacau.com/traffic/m2277.m3u8 | cam_id=76 | 南灣大馬路與區華利前地交界 | 22.19105, 113.53927
+https://streaming1.dsatmacau.com/traffic/m2090.m3u8 | cam_id=81 | 南灣大馬路與殷皇子大馬路(向八角亭方向) | 22.19224, 113.54096
+https://streaming1.dsatmacau.com/traffic/m2091.m3u8 | cam_id=82 | 南灣大馬路與殷皇子大馬路(向殷皇子大馬路方向) | 22.19219, 113.54089
+https://streaming1.dsatmacau.com/traffic/m2009.m3u8 | cam_id=95 | 殷皇子大馬路與約翰四世大馬路交界 | 22.19111, 113.54202
+https://streaming1.dsatmacau.com/traffic/m2062.m3u8 | cam_id=94 | 殷皇子大馬路與葡京路交界 | 22.18993, 113.54341
+https://streaming1.dsatmacau.com/traffic/m2061.m3u8 | cam_id=62 | 亞馬喇前地 | 22.18990, 113.54339
+https://streaming1.dsatmacau.com/traffic/m1121.m3u8 | cam_id=92 | 亞馬喇前地之圓形地方向 | 22.18895, 113.54317
+https://streaming1.dsatmacau.com/traffic/m1120.m3u8 | cam_id=93 | 亞馬喇前地巴士站 | 22.18944, 113.54336
+
+# ============================================================
+# 二、澳門半島 - 荷蘭園/水坑尾/東望洋區 (7個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/m1097.m3u8 | cam_id=133 | 水坑尾 | 22.19405, 113.54369
+https://streaming1.dsatmacau.com/traffic/m2013.m3u8 | cam_id=67 | 高偉樂街與荷蘭園大馬路交界 | 22.19768, 113.54638
+https://streaming1.dsatmacau.com/traffic/m2067.m3u8 | cam_id=65 | 美副將大馬路與士多鳥拜斯大馬路交界 | 22.20191, 113.55247
+https://streaming1.dsatmacau.com/traffic/m1122.m3u8 | cam_id=126 | 捐血中心 | 22.18946, 113.54977
+https://streaming1.dsatmacau.com/traffic/m1129.m3u8 | cam_id=131 | 華士古停車場 | 22.19639, 113.54650
+https://streaming1.dsatmacau.com/traffic/m1125.m3u8 | cam_id=135 | 宋玉生廣場 | 22.19006, 113.55043
+https://streaming1.dsatmacau.com/traffic/m1082.m3u8 | cam_id=106 | 羅理基博士大馬路行車隧道往松山隧道方向 | 22.19619, 113.55196
+
+# ============================================================
+# 三、澳門半島 - 高士德/提督馬路/美副將區 (8個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/m2065.m3u8 | cam_id=118 | 提督馬路與高士德大馬路交界（向高士德大馬路方向）| 22.20533, 113.54436
+https://streaming1.dsatmacau.com/traffic/m2063.m3u8 | cam_id=66 | 提督馬路與高士德大馬路交界 | 22.20525, 113.54427
+https://streaming1.dsatmacau.com/traffic/m2054.m3u8 | cam_id=104 | 提督馬路與罅些喇海軍上將巷交界 | 22.20401, 113.54255
+https://streaming1.dsatmacau.com/traffic/m2084.m3u8 | cam_id=132 | 高士德與俾利喇街交界 | 22.20290, 113.54709
+https://streaming1.dsatmacau.com/traffic/m2252.m3u8 | cam_id=115 | 美副將大馬路與俾利喇街交界 | 22.20496, 113.54877
+https://streaming1.dsatmacau.com/traffic/m2303.m3u8 | cam_id=114 | 美副將大馬路與連勝馬路交界 | 22.20625, 113.54715
+https://streaming1.dsatmacau.com/traffic/m2310.m3u8 | cam_id=116 | 美副將大馬路與荷蘭園大馬路交界 | 22.20280, 113.54980
+https://streaming1.dsatmacau.com/traffic/m2051.m3u8 | cam_id=112 | 馬交石斜坡與俾利喇街交界 | 22.20669, 113.55032
+
+# ============================================================
+# 四、澳門半島 - 沙梨頭/林茂塘/十六浦區 (8個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/m2198.m3u8 | cam_id=127 | 沙梨頭海邊街 | 22.20314, 113.54033
+https://streaming1.dsatmacau.com/traffic/m2179.m3u8 | cam_id=113 | 沙梨頭海邊街與爹美刁施拿地大馬路交界 | 22.20248, 113.53801
+https://streaming1.dsatmacau.com/traffic/m2116.m3u8 | cam_id=103 | 沙梨頭海邊街與林茂巷交界 | 22.20250, 113.53806
+https://streaming1.dsatmacau.com/traffic/m1035.m3u8 | cam_id=77 | 沙梨頭海邊街與魚鰓巷交界(向新馬路方向) | 22.20018, 113.53728
+https://streaming1.dsatmacau.com/traffic/m2169.m3u8 | cam_id=122 | 沙梨頭南街 | 22.20600, 113.54050
+https://streaming1.dsatmacau.com/traffic/m1166.m3u8 | cam_id=111 | 爹美刁斯拿地大馬路近栢港停車場 | 22.19829, 113.53657
+https://streaming1.dsatmacau.com/traffic/m1049.m3u8 | cam_id=83 | 爹美刁施拿地大馬路與魚鱗巷交界(向十六浦方向) | 22.20174, 113.53727
+https://streaming1.dsatmacau.com/traffic/m2120.m3u8 | cam_id=79 | 巴素打爾古街近栢港停車場出口(向火船頭街方向) | 22.19765, 113.53669
+
+# ============================================================
+# 五、澳門半島 - 河邊新街/媽閣/司打口區 (7個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/m2110.m3u8 | cam_id=101 | 河邊新街與航海學校街交界(向媽閣方向) | 22.18746, 113.53120
+https://streaming1.dsatmacau.com/traffic/m1040.m3u8 | cam_id=78 | 河邊新街與比厘喇馬忌士街交界(向媽閣廟方向) | 22.18947, 113.53268
+https://streaming1.dsatmacau.com/traffic/m2129.m3u8 | cam_id=86 | 河邊新街與鹽巷交界（向媽閣方向）| 22.19011, 113.53309
+https://streaming1.dsatmacau.com/traffic/m1067.m3u8 | cam_id=102 | 比厘喇馬忌士街與馬博士巷交界 | 22.19218, 113.53400
+https://streaming1.dsatmacau.com/traffic/m1064.m3u8 | cam_id=84 | 比厘喇馬忌士街與貨倉巷交界(向十六浦方向) | 22.19108, 113.53459
+https://streaming1.dsatmacau.com/traffic/m2125.m3u8 | cam_id=80 | 火船頭街近11號碼頭（向巴素打爾古街方向) | 22.19630, 113.53647
+https://streaming1.dsatmacau.com/traffic/m2126.m3u8 | cam_id=85 | 火船頭街（近11號碼頭）（向河邊新街方向）| 22.19319, 113.53520
+
+# ============================================================
+# 六、澳門半島 - 西灣/南灣湖區 (5個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/m1086.m3u8 | cam_id=90 | 孫逸仙大馬路(近終審法院前地) | 22.18239, 113.54111
+https://streaming1.dsatmacau.com/traffic/m1091.m3u8 | cam_id=91 | 西灣湖廣場(向孫逸仙大馬路) | 22.18146, 113.53839
+https://streaming1.dsatmacau.com/traffic/m1090.m3u8 | cam_id=88 | 西灣湖廣場(向西灣湖景大馬路) | 22.18044, 113.53762
+https://streaming1.dsatmacau.com/traffic/m2202.m3u8 | cam_id=98 | 孫逸仙大馬路與城市日大馬路交界 | 22.18585, 113.54943
+https://streaming1.dsatmacau.com/traffic/b1300.m3u8 | cam_id=100 | 西灣湖景大馬路(向孫逸仙大馬路方向) | 22.18080, 113.53700
+
+# ============================================================
+# 七、澳門半島 - 北區/關閘/青洲區 (6個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/m2173.m3u8 | cam_id=105 | 關閘廣場(向隧道方向) | 22.21520, 113.55010
+https://streaming1.dsatmacau.com/traffic/m1028.m3u8 | cam_id=61 | 馬場北大馬路 | 22.21350, 113.55250
+https://streaming1.dsatmacau.com/traffic/m1033.m3u8 | cam_id=110 | 馬場北大馬路與馬場東大馬路交界 | 22.21385, 113.55444
+https://streaming1.dsatmacau.com/traffic/m2259.m3u8 | cam_id=108 | 巴坡沙大馬路與青洲大馬路交界 | 22.21027, 113.54734
+https://streaming1.dsatmacau.com/traffic/m2331.m3u8 | cam_id=123 | 青茂口岸-A | 22.21450, 113.54600
+https://streaming1.dsatmacau.com/traffic/m2332.m3u8 | cam_id=124 | 青茂口岸-B | 22.21450, 113.54600
+
+# ============================================================
+# 八、澳門半島 - 黑沙環/慕拉士/勞動節區 (4個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/m2322.m3u8 | cam_id=125 | 黑沙環新街 | 22.20613, 113.55738
+https://streaming1.dsatmacau.com/traffic/m2023.m3u8 | cam_id=129 | 慕拉士大馬路 | 22.20665, 113.55256
+https://streaming1.dsatmacau.com/traffic/m2043.m3u8 | cam_id=137 | 勞動節大馬路 | 22.21059, 113.55409
+https://streaming1.dsatmacau.com/traffic/m2092.m3u8 | cam_id=75 | 東北大馬路與黑沙環中街交界向友誼圓形地方向 | 22.20938, 113.55765
+
+# ============================================================
+# 九、澳門半島 - 友誼大馬路/新口岸/外港區 (9個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/m1134.m3u8 | cam_id=148 | 友誼大馬路 | 22.19077, 113.54870
+https://streaming1.dsatmacau.com/traffic/m2346.m3u8 | cam_id=149 | 友誼大馬路(向馬揸度博士大馬路方向) | 22.20474, 113.56060
+https://streaming1.dsatmacau.com/traffic/m2208.m3u8 | cam_id=147 | 馬揸度博士大馬路 | 22.20563, 113.55812
+https://streaming1.dsatmacau.com/traffic/m2287.m3u8 | cam_id=146 | 馬揸度博士大馬路(近勞工局) | 22.20573, 113.55884
+https://streaming1.dsatmacau.com/traffic/m2289.m3u8 | cam_id=130 | 馬六甲街停車場 | 22.19606, 113.55367
+https://streaming1.dsatmacau.com/traffic/m2029.m3u8 | cam_id=99 | 友誼圓形地與友誼橋大馬路交界(向港珠澳大橋入口方向) | 22.21175, 113.55951
+https://streaming1.dsatmacau.com/traffic/m1196.m3u8 | cam_id=150 | 友誼橋大馬路(向氹仔方向) | 22.20866, 113.56081
+https://streaming1.dsatmacau.com/traffic/m1001.m3u8 | cam_id=58 | 外港客運碼頭 A | 22.19700, 113.55750
+https://streaming1.dsatmacau.com/traffic/m1002.m3u8 | cam_id=59 | 外港客運碼頭 B | 22.19700, 113.55750
+
+# ============================================================
+# 十、澳門半島 - 松山隧道 (2個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/t4001.m3u8 | cam_id=69 | 松山隧道高士德方向 | 22.19889, 113.55073
+https://streaming1.dsatmacau.com/traffic/t4008.m3u8 | cam_id=70 | 松山隧道羅理基方向 | 22.19674, 113.55192
+
+# ============================================================
+# 十一、友誼大橋 (Ponte de Amizade / 友誼大橋) - 中點 22.189317, 113.563194 (5個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/b1015.m3u8 | cam_id=51 | 友誼大橋近港澳碼頭出口交匯處 | 22.19800, 113.56050
+https://streaming1.dsatmacau.com/traffic/b1025.m3u8 | cam_id=96 | 友誼大橋近澳門端之橋峰望澳門方向 | 22.19900, 113.56250
+https://streaming1.dsatmacau.com/traffic/b1033.m3u8 | cam_id=97 | 友誼大橋近氹仔端之橋峰望氹仔方向 | 22.16700, 113.56700
+https://streaming1.dsatmacau.com/traffic/b1039.m3u8 | cam_id=52 | 友誼大橋近北安入口交匯處 | 22.15900, 113.56850
+https://streaming1.dsatmacau.com/traffic/b1041.m3u8 | cam_id=109 | 友誼大橋近氹仔端出口 | 22.15750, 113.56900
+
+# ============================================================
+# 十二、西灣大橋 (Ponte de Sai Van / 西灣大橋) - 中點 22.17222, 113.53611 (5個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/b1312.m3u8 | cam_id=63 | 西灣大橋澳門方向 | 22.17800, 113.53650
+https://streaming1.dsatmacau.com/traffic/b1311.m3u8 | cam_id=64 | 西灣大橋氹仔方向 | 22.15000, 113.54000
+https://streaming1.dsatmacau.com/traffic/b1245.m3u8 | cam_id=107 | 西灣大橋中段望澳門方向 | 22.17000, 113.53650
+https://streaming1.dsatmacau.com/traffic/b1286.m3u8 | cam_id=89 | 西灣大橋下層隧道(向澳門方向) | 22.17000, 113.53600
+https://streaming1.dsatmacau.com/traffic/b1234.m3u8 | cam_id=87 | 東亞運圓形地(向西灣大橋入口) | 22.15100, 113.54300
+
+# ============================================================
+# 十三、澳門大橋 (Macau Bridge / 第四條跨海大橋) - 中點 22.182667, 113.57333 (6個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/b1514.m3u8 | cam_id=159 | 澳門大橋近人工島澳門口岸交匯處 | 22.20550, 113.57450
+https://streaming1.dsatmacau.com/traffic/b1406.m3u8 | cam_id=160 | 澳門大橋近澳門端入口 | 22.20700, 113.56700
+https://streaming1.dsatmacau.com/traffic/b1411.m3u8 | cam_id=161 | 澳門大橋近澳門端(向氹仔方向) | 22.20600, 113.56800
+https://streaming1.dsatmacau.com/traffic/b1436.m3u8 | cam_id=162 | 澳門大橋中段澳門往氹仔方向 | 22.18800, 113.57200
+https://streaming1.dsatmacau.com/traffic/b1439.m3u8 | cam_id=163 | 澳門大橋中段氹仔往澳門方向 | 22.18500, 113.57300
+https://streaming1.dsatmacau.com/traffic/b1466.m3u8 | cam_id=164 | 澳門大橋近氹仔端出入口 | 22.16500, 113.57250
+
+# ============================================================
+# 十四、港珠澳大橋/澳門橋/新城A區 (8個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/p1004.m3u8 | cam_id=145 | 港珠澳邊檢北大馬路 | 22.20800, 113.57500
+https://streaming1.dsatmacau.com/traffic/p1018.m3u8 | cam_id=153 | 港珠澳邊檢南大馬路 | 22.20350, 113.57550
+https://streaming1.dsatmacau.com/traffic/p1057.m3u8 | cam_id=152 | 港珠澳邊檢南大馬路 (入境車道) | 22.20350, 113.57600
+https://streaming1.dsatmacau.com/traffic/a1006.m3u8 | cam_id=144 | 馬萬祺博士大馬路（向友誼圓形地方向）| 22.21050, 113.56200
+https://streaming1.dsatmacau.com/traffic/a1008.m3u8 | cam_id=166 | 泰安大馬路與馬萬祺博士大馬路交界 | 22.21050, 113.56500
+https://streaming1.dsatmacau.com/traffic/a1022.m3u8 | cam_id=158 | 鏡海大馬路 | 22.20850, 113.56600
+https://streaming1.dsatmacau.com/traffic/a1029.m3u8 | cam_id=165 | A2橋澳門出口 | 22.21200, 113.55500
+https://streaming1.dsatmacau.com/traffic/a1039.m3u8 | cam_id=167 | 澳門橋大馬路與泰安大馬路交界 | 22.21200, 113.56700
+
+# ============================================================
+# 十五、港珠澳人工島通關車道 (HZMB Port: 22.2054, 113.5764) (4個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/z1001.m3u8 | cam_id=154 | 港珠澳人工島往珠海通關車道A | 22.20500, 113.57750
+https://streaming1.dsatmacau.com/traffic/z1002.m3u8 | cam_id=157 | 港珠澳人工島往珠海通關車道B | 22.20400, 113.57750
+https://streaming1.dsatmacau.com/traffic/z1003.m3u8 | cam_id=155 | 港珠澳人工島往澳門通關車道A | 22.20500, 113.57600
+https://streaming1.dsatmacau.com/traffic/z1004.m3u8 | cam_id=156 | 港珠澳人工島往澳門通關車道B | 22.20400, 113.57600
+
+# ============================================================
+# 十六、氹仔 - 北安/機場/科大/圓形地 (7個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/t1014.m3u8 | cam_id=60 | 北安圓形地 | 22.15800, 113.56800
+https://streaming1.dsatmacau.com/traffic/t1019.m3u8 | cam_id=71 | 東亞運街往東亞運大馬路方向 | 22.15200, 113.55000
+https://streaming1.dsatmacau.com/traffic/t1023.m3u8 | cam_id=72 | 奧林匹克游泳館圓形地往望德聖母灣大馬路方向 | 22.15200, 113.55800
+https://streaming1.dsatmacau.com/traffic/t1030.m3u8 | cam_id=73 | 路氹連貫公路圓形地 | 22.15000, 113.56200
+https://streaming1.dsatmacau.com/traffic/t1056.m3u8 | cam_id=138 | 北安大馬路往澳門方向 | 22.15750, 113.57000
+https://streaming1.dsatmacau.com/traffic/t2019.m3u8 | cam_id=140 | 偉龍馬路與飛機場圓形地交界 | 22.15300, 113.57200
+https://streaming1.dsatmacau.com/traffic/t4202.m3u8 | cam_id=141 | 路氹連貫公路下層隧道 | 22.14000, 113.56200
+
+# ============================================================
+# 十七、氹仔 - 蘇利安/海灣花園/威尼斯人/路氹 (4個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/t1053.m3u8 | cam_id=128 | 蘇利安圓形地 | 22.15500, 113.54800
+https://streaming1.dsatmacau.com/traffic/t1059.m3u8 | cam_id=134 | 海灣花園 | 22.15800, 113.55300
+https://streaming1.dsatmacau.com/traffic/t2016.m3u8 | cam_id=136 | 威尼斯人 | 22.14800, 113.56200
+https://streaming1.dsatmacau.com/traffic/t2015.m3u8 | cam_id=139 | 路氹連貫公路(近順榮大馬路) | 22.13800, 113.56300
+
+# ============================================================
+# 十八、橫琴口岸澳門口岸區 (Hengqin Port ~22.140, 113.545) (4個)
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/t1077.m3u8 | cam_id=119 | 橫琴口岸澳門口岸區平台層 A | 22.13950, 113.54500
+https://streaming1.dsatmacau.com/traffic/t1076.m3u8 | cam_id=120 | 橫琴口岸澳門口岸區平台層 B | 22.13950, 113.54550
+https://streaming1.dsatmacau.com/traffic/h1009.m3u8 | cam_id=117 | 橫琴口岸澳門口岸區平台層 C | 22.14000, 113.54500
+https://streaming1.dsatmacau.com/traffic/h1043.m3u8 | cam_id=121 | 橫琴口岸澳門口岸區平台層 D | 22.14000, 113.54550
+
+# ============================================================
+# 純 URL 清單 (供 Python load_streams() 讀取，以 # 開頭為忽略行)
+# 共 111 條 URL
+# ============================================================
+https://streaming1.dsatmacau.com/traffic/a1006.m3u8
+https://streaming1.dsatmacau.com/traffic/a1008.m3u8
+https://streaming1.dsatmacau.com/traffic/a1022.m3u8
+https://streaming1.dsatmacau.com/traffic/a1029.m3u8
+https://streaming1.dsatmacau.com/traffic/a1039.m3u8
+https://streaming1.dsatmacau.com/traffic/b1015.m3u8
+https://streaming1.dsatmacau.com/traffic/b1025.m3u8
+https://streaming1.dsatmacau.com/traffic/b1033.m3u8
+https://streaming1.dsatmacau.com/traffic/b1039.m3u8
+https://streaming1.dsatmacau.com/traffic/b1041.m3u8
+https://streaming1.dsatmacau.com/traffic/b1234.m3u8
+https://streaming1.dsatmacau.com/traffic/b1245.m3u8
+https://streaming1.dsatmacau.com/traffic/b1286.m3u8
+https://streaming1.dsatmacau.com/traffic/b1300.m3u8
+https://streaming1.dsatmacau.com/traffic/b1311.m3u8
+https://streaming1.dsatmacau.com/traffic/b1312.m3u8
+https://streaming1.dsatmacau.com/traffic/b1406.m3u8
+https://streaming1.dsatmacau.com/traffic/b1411.m3u8
+https://streaming1.dsatmacau.com/traffic/b1436.m3u8
+https://streaming1.dsatmacau.com/traffic/b1439.m3u8
+https://streaming1.dsatmacau.com/traffic/b1466.m3u8
+https://streaming1.dsatmacau.com/traffic/b1514.m3u8
+https://streaming1.dsatmacau.com/traffic/h1009.m3u8
+https://streaming1.dsatmacau.com/traffic/h1043.m3u8
+https://streaming1.dsatmacau.com/traffic/m1001.m3u8
+https://streaming1.dsatmacau.com/traffic/m1002.m3u8
+https://streaming1.dsatmacau.com/traffic/m1028.m3u8
+https://streaming1.dsatmacau.com/traffic/m1033.m3u8
+https://streaming1.dsatmacau.com/traffic/m1035.m3u8
+https://streaming1.dsatmacau.com/traffic/m1040.m3u8
+https://streaming1.dsatmacau.com/traffic/m1049.m3u8
+https://streaming1.dsatmacau.com/traffic/m1064.m3u8
+https://streaming1.dsatmacau.com/traffic/m1067.m3u8
+https://streaming1.dsatmacau.com/traffic/m1082.m3u8
+https://streaming1.dsatmacau.com/traffic/m1086.m3u8
+https://streaming1.dsatmacau.com/traffic/m1090.m3u8
+https://streaming1.dsatmacau.com/traffic/m1091.m3u8
+https://streaming1.dsatmacau.com/traffic/m1097.m3u8
+https://streaming1.dsatmacau.com/traffic/m1120.m3u8
+https://streaming1.dsatmacau.com/traffic/m1121.m3u8
+https://streaming1.dsatmacau.com/traffic/m1122.m3u8
+https://streaming1.dsatmacau.com/traffic/m1125.m3u8
+https://streaming1.dsatmacau.com/traffic/m1129.m3u8
+https://streaming1.dsatmacau.com/traffic/m1134.m3u8
+https://streaming1.dsatmacau.com/traffic/m1166.m3u8
+https://streaming1.dsatmacau.com/traffic/m1196.m3u8
+https://streaming1.dsatmacau.com/traffic/m2009.m3u8
+https://streaming1.dsatmacau.com/traffic/m2013.m3u8
+https://streaming1.dsatmacau.com/traffic/m2023.m3u8
+https://streaming1.dsatmacau.com/traffic/m2029.m3u8
+https://streaming1.dsatmacau.com/traffic/m2043.m3u8
+https://streaming1.dsatmacau.com/traffic/m2051.m3u8
+https://streaming1.dsatmacau.com/traffic/m2054.m3u8
+https://streaming1.dsatmacau.com/traffic/m2061.m3u8
+https://streaming1.dsatmacau.com/traffic/m2062.m3u8
+https://streaming1.dsatmacau.com/traffic/m2063.m3u8
+https://streaming1.dsatmacau.com/traffic/m2065.m3u8
+https://streaming1.dsatmacau.com/traffic/m2067.m3u8
+https://streaming1.dsatmacau.com/traffic/m2070.m3u8
+https://streaming1.dsatmacau.com/traffic/m2084.m3u8
+https://streaming1.dsatmacau.com/traffic/m2086.m3u8
+https://streaming1.dsatmacau.com/traffic/m2090.m3u8
+https://streaming1.dsatmacau.com/traffic/m2091.m3u8
+https://streaming1.dsatmacau.com/traffic/m2092.m3u8
+https://streaming1.dsatmacau.com/traffic/m2110.m3u8
+https://streaming1.dsatmacau.com/traffic/m2116.m3u8
+https://streaming1.dsatmacau.com/traffic/m2120.m3u8
+https://streaming1.dsatmacau.com/traffic/m2125.m3u8
+https://streaming1.dsatmacau.com/traffic/m2126.m3u8
+https://streaming1.dsatmacau.com/traffic/m2129.m3u8
+https://streaming1.dsatmacau.com/traffic/m2134.m3u8
+https://streaming1.dsatmacau.com/traffic/m2169.m3u8
+https://streaming1.dsatmacau.com/traffic/m2173.m3u8
+https://streaming1.dsatmacau.com/traffic/m2179.m3u8
+https://streaming1.dsatmacau.com/traffic/m2181.m3u8
+https://streaming1.dsatmacau.com/traffic/m2198.m3u8
+https://streaming1.dsatmacau.com/traffic/m2202.m3u8
+https://streaming1.dsatmacau.com/traffic/m2208.m3u8
+https://streaming1.dsatmacau.com/traffic/m2252.m3u8
+https://streaming1.dsatmacau.com/traffic/m2259.m3u8
+https://streaming1.dsatmacau.com/traffic/m2277.m3u8
+https://streaming1.dsatmacau.com/traffic/m2287.m3u8
+https://streaming1.dsatmacau.com/traffic/m2289.m3u8
+https://streaming1.dsatmacau.com/traffic/m2303.m3u8
+https://streaming1.dsatmacau.com/traffic/m2310.m3u8
+https://streaming1.dsatmacau.com/traffic/m2322.m3u8
+https://streaming1.dsatmacau.com/traffic/m2331.m3u8
+https://streaming1.dsatmacau.com/traffic/m2332.m3u8
+https://streaming1.dsatmacau.com/traffic/m2346.m3u8
+https://streaming1.dsatmacau.com/traffic/p1004.m3u8
+https://streaming1.dsatmacau.com/traffic/p1018.m3u8
+https://streaming1.dsatmacau.com/traffic/p1057.m3u8
+https://streaming1.dsatmacau.com/traffic/t1014.m3u8
+https://streaming1.dsatmacau.com/traffic/t1019.m3u8
+https://streaming1.dsatmacau.com/traffic/t1023.m3u8
+https://streaming1.dsatmacau.com/traffic/t1030.m3u8
+https://streaming1.dsatmacau.com/traffic/t1053.m3u8
+https://streaming1.dsatmacau.com/traffic/t1056.m3u8
+https://streaming1.dsatmacau.com/traffic/t1059.m3u8
+https://streaming1.dsatmacau.com/traffic/t1076.m3u8
+https://streaming1.dsatmacau.com/traffic/t1077.m3u8
+https://streaming1.dsatmacau.com/traffic/t2015.m3u8
+https://streaming1.dsatmacau.com/traffic/t2016.m3u8
+https://streaming1.dsatmacau.com/traffic/t2019.m3u8
+https://streaming1.dsatmacau.com/traffic/t4001.m3u8
+https://streaming1.dsatmacau.com/traffic/t4008.m3u8
+https://streaming1.dsatmacau.com/traffic/t4202.m3u8
+https://streaming1.dsatmacau.com/traffic/z1001.m3u8
+https://streaming1.dsatmacau.com/traffic/z1002.m3u8
+https://streaming1.dsatmacau.com/traffic/z1003.m3u8
+https://streaming1.dsatmacau.com/traffic/z1004.m3u8

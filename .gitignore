@@ -13,11 +13,17 @@ main/cache/
 !*.css
 !*.js
 !*.json
+!*.txt
+!*.cfg
+!*.xml
+!*.rou.xml
+!*.sumocfg
 
 !.gitignore
 !README.md
 !CLAUDE.md
 !requirements.txt
+!macau_streams.txt
 
 # Temp & runner files
 *CodeRunner*
