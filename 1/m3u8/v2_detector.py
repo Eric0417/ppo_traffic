@@ -54,7 +54,7 @@ except ImportError:
 # CONFIG — v2 111鏡頭設定
 # =========================
 MAX_CAMERAS = 111
-PUSH_TO_WEBSITE = True   # 是否推送數據到網站 (False=純收集訓練數據)
+PUSH_TO_WEBSITE = False   # 是否推送數據到網站 (False=純收集訓練數據)
 CLOUD_API_URL = "https://macau-traffic.onrender.com/api/update"
 LOCAL_API_URL = "http://localhost:8000/api/update"  # 本地網站
 
@@ -618,12 +618,14 @@ def run_heat_diffusion(G, source_scores, iterations=60):
             total_weight = 0.0
             for nb in list(G.successors(n)) + list(G.predecessors(n)):
                 if scores[nb] is not None:
-                    # 找連接邊的容量權重
-                    cap = 0.1  # 預設低權重
-                    for k in G[n].get(nb, {}):
-                        cap = max(cap, EDGE_CAPACITY.get((n, nb, k), 0.1))
-                    for k in G.get(nb, {}).get(n, {}):
-                        cap = max(cap, EDGE_CAPACITY.get((nb, n, k), 0.1))
+                    # 找連接邊的容量權重 (MultiDiGraph API)
+                    cap = 0.1
+                    if nb in G[n]:
+                        for k in G[n][nb]:
+                            cap = max(cap, EDGE_CAPACITY.get((n, nb, k), 0.1))
+                    if n in G[nb]:
+                        for k in G[nb][n]:
+                            cap = max(cap, EDGE_CAPACITY.get((nb, n, k), 0.1))
                     weighted_sum += scores[nb] * cap
                     total_weight += cap
 
