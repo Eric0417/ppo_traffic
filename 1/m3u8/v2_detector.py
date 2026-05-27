@@ -25,6 +25,7 @@ import cv2
 import time
 import math
 import threading
+import csv
 import json
 import requests
 from dataclasses import dataclass
@@ -53,8 +54,12 @@ except ImportError:
 # CONFIG — v2 111鏡頭設定
 # =========================
 MAX_CAMERAS = 111
+PUSH_TO_WEBSITE = True   # 是否推送數據到網站 (False=純收集訓練數據)
 CLOUD_API_URL = "https://macau-traffic.onrender.com/api/update"
 LOCAL_API_URL = "http://localhost:8000/api/update"  # 本地網站
+
+TRAINING_DATA_DIR = r"D:\school\bsd\1\m3u8\training_data"  # PPO 訓練數據
+SAVE_INTERVAL_SEC = 60.0  # 每 60 秒存一次訓練數據
 
 STREAMS_FILE = r"D:\school\bsd\1\m3u8\macau_streams.txt"
 MODEL_PATH = r"D:\school\bsd\1\yolo12x.pt"
@@ -525,12 +530,58 @@ def print_camera_stats():
     print("=" * 50)
 
 # =========================
-# 雲端資料推播 (全澳門路網)
+# 雲端資料推播 (全澳門路網 + 道路等級加權)
 # =========================
 MACAU_GRAPH = None
+EDGE_CAPACITY = {}  # (u, v, k) → capacity_weight (0~1)
 
-# 全澳門範圍 (澳門半島 + 氹仔 + 路環 + 港珠澳人工島)
+# 道路類型容量權重 (根據 OSM highway 標籤)
+HIGHWAY_CAPACITY = {
+    'motorway': 1.0, 'motorway_link': 0.9,
+    'trunk': 0.9, 'trunk_link': 0.8,
+    'primary': 0.8, 'primary_link': 0.7,
+    'secondary': 0.6, 'secondary_link': 0.5,
+    'tertiary': 0.4, 'tertiary_link': 0.35,
+    'residential': 0.2, 'living_street': 0.15,
+    'unclassified': 0.15, 'service': 0.1,
+    'pedestrian': 0.05, 'footway': 0.02,
+    'cycleway': 0.02, 'path': 0.02,
+}
+
+# 全澳門範圍
 MACAU_BBOX = (113.52, 22.10, 113.60, 22.22)
+
+def _compute_edge_capacity(G):
+    """根據道路類型/車道數/速限計算每條邊的容量權重 (0~1)"""
+    global EDGE_CAPACITY
+    EDGE_CAPACITY = {}
+    for u, v, k, data in G.edges(keys=True, data=True):
+        hw = data.get('highway', 'unclassified')
+        if isinstance(hw, list):
+            hw = hw[0]
+        base = HIGHWAY_CAPACITY.get(hw, 0.1)
+
+        # 車道數加成
+        lanes = data.get('lanes', 1)
+        if isinstance(lanes, list):
+            lanes = int(lanes[0]) if lanes else 1
+        else:
+            lanes = int(lanes) if lanes else 1
+        lane_factor = min(1.0, lanes / 4.0)  # 4線道=滿權重
+
+        # 速限加成
+        maxspeed = data.get('maxspeed', '50')
+        if isinstance(maxspeed, list):
+            maxspeed = maxspeed[0]
+        try:
+            speed = float(str(maxspeed).replace('km/h', '').replace('mph', '').strip())
+        except (ValueError, TypeError):
+            speed = 50
+        speed_factor = min(1.0, speed / 80.0)
+
+        # 綜合容量: 道路類型 60% + 車道 25% + 速限 15%
+        cap = base * 0.6 + lane_factor * 0.25 + speed_factor * 0.15
+        EDGE_CAPACITY[(u, v, k)] = max(0.02, min(1.0, cap))
 
 def preload_macau_graph():
     global MACAU_GRAPH
@@ -540,24 +591,48 @@ def preload_macau_graph():
         print(f"下載全澳門路網 (含氹仔/路環)...")
         MACAU_GRAPH = ox.graph_from_bbox(
             bbox=MACAU_BBOX, network_type='drive')
-        print(f"全澳門路網載入成功！節點: {len(MACAU_GRAPH.nodes)}, 邊: {len(MACAU_GRAPH.edges)}")
+        _compute_edge_capacity(MACAU_GRAPH)
+        print(f"全澳門路網載入成功！節點: {len(MACAU_GRAPH.nodes)}, "
+              f"邊: {len(MACAU_GRAPH.edges)}, 道路類型: {len(HIGHWAY_CAPACITY)}")
     except Exception as e:
         print(f"路網載入失敗: {e}")
 
-def run_heat_diffusion(G, source_scores, iterations=40):
-    scores = {n: None for n in G.nodes()}
-    for n, s in source_scores.items():
-        scores[n] = s
+def run_heat_diffusion(G, source_scores, iterations=60):
+    """道路等級加權熱擴散: 主幹道傳播力強, 小巷傳播力弱"""
+    # 初始化: 有攝影機的節點設為來源值
+    scores = {n: source_scores.get(n, None) for n in G.nodes()}
+    for n in G.nodes():
+        if n in source_scores:
+            scores[n] = source_scores[n]
+        else:
+            scores[n] = None
+
     for _ in range(iterations):
         new_scores = scores.copy()
         for n in G.nodes():
             if n in source_scores:
-                continue
-            neighbors = list(G.successors(n)) + list(G.predecessors(n))
-            vals = [scores[nb] for nb in neighbors if scores[nb] is not None]
-            if vals:
-                new_scores[n] = sum(vals) / len(vals)
+                continue  # 來源節點保持原值
+
+            # 收集鄰居加權分數
+            weighted_sum = 0.0
+            total_weight = 0.0
+            for nb in list(G.successors(n)) + list(G.predecessors(n)):
+                if scores[nb] is not None:
+                    # 找連接邊的容量權重
+                    cap = 0.1  # 預設低權重
+                    for k in G[n].get(nb, {}):
+                        cap = max(cap, EDGE_CAPACITY.get((n, nb, k), 0.1))
+                    for k in G.get(nb, {}).get(n, {}):
+                        cap = max(cap, EDGE_CAPACITY.get((nb, n, k), 0.1))
+                    weighted_sum += scores[nb] * cap
+                    total_weight += cap
+
+            if total_weight > 0:
+                new_scores[n] = weighted_sum / total_weight
+
         scores = new_scores
+
+    # 填補 None → 0.0
     for n in G.nodes():
         if scores[n] is None:
             scores[n] = 0.0
@@ -647,6 +722,97 @@ def post_macau_traffic_data(states, cloud_url):
         requests.post(cloud_url, json=payload, timeout=2.0)
     except Exception as e:
         print(f"雲端推播錯誤: {e}")
+
+# =========================
+# 訓練數據收集 (PPO 模型用)
+# =========================
+def save_training_data(states):
+    """儲存當前所有攝影機的詳細指標 + 路段流量數據"""
+    try:
+        now = datetime.now()
+        date_str = now.strftime("%Y-%m-%d")
+        ts_iso = now.isoformat(timespec="seconds")
+        hour = now.hour
+        weekday = now.weekday()  # 0=Mon, 6=Sun
+        minute_of_day = hour * 60 + now.minute
+
+        out_dir = os.path.join(TRAINING_DATA_DIR, date_str)
+        os.makedirs(out_dir, exist_ok=True)
+
+        # ---- 攝影機級數據 (CSV) ----
+        csv_path = os.path.join(out_dir, f"camera_metrics_{date_str}.csv")
+        csv_exists = os.path.exists(csv_path)
+        with open(csv_path, "a", newline="", encoding="utf-8") as f:
+            writer = csv.writer(f)
+            if not csv_exists:
+                writer.writerow([
+                    "timestamp", "hour", "weekday", "minute_of_day",
+                    "camera_name", "cam_index",
+                    "veh_active", "occupancy", "median_speed_px_s",
+                    "stop_ratio", "jam_raw", "jam_avg", "flow_vpm",
+                    "lat", "lon", "tags", "highway_type",
+                ])
+            for i, st in enumerate(states):
+                m = st.last_metrics or {}
+                coord = STREET_COORDS.get(st.name)
+                lat, lon = coord if coord else (None, None)
+                tags = ",".join(CAM_TAGS.get(st.name, []))
+                writer.writerow([
+                    ts_iso, hour, weekday, minute_of_day,
+                    st.name, i,
+                    m.get("veh_active", 0),
+                    round(m.get("occupancy", 0), 5),
+                    round(m.get("median_speed", 0), 2),
+                    round(m.get("stop_ratio", 0), 4),
+                    round(m.get("jam_raw", 0), 4),
+                    round(m.get("jam_avg", 0), 4),
+                    round(m.get("flow_total_vpm", 0), 2),
+                    lat, lon, tags, "",
+                ])
+
+        # ---- 路段級數據 (JSON, 給 SUMO 轉換用) ----
+        edge_path = os.path.join(out_dir, f"edge_flow_{date_str}.jsonl")
+        if MACAU_GRAPH is not None:
+            current_scores = {
+                st.name: (st.last_metrics.get("jam_avg", 0.0) if st.last_metrics else 0.0)
+                for st in states
+            }
+            camera_node_scores = {}
+            for name, coord in STREET_COORDS.items():
+                if name in current_scores and coord is not None:
+                    try:
+                        nn = ox.distance.nearest_nodes(MACAU_GRAPH, X=coord[1], Y=coord[0])
+                        camera_node_scores[nn] = current_scores[name]
+                    except Exception:
+                        pass
+            node_scores = run_heat_diffusion(MACAU_GRAPH, camera_node_scores, iterations=60)
+
+            with open(edge_path, "a", encoding="utf-8") as f:
+                for u, v, k, data in MACAU_GRAPH.edges(keys=True, data=True):
+                    sc = (node_scores[u] + node_scores[v]) / 2.0
+                    hw = data.get("highway", "unclassified")
+                    if isinstance(hw, list):
+                        hw = hw[0]
+                    lanes = data.get("lanes", 1)
+                    maxspeed = data.get("maxspeed", "50")
+                    length = data.get("length", 0)
+                    osmid = data.get("osmid", "")
+                    cap = EDGE_CAPACITY.get((u, v, k), 0.1)
+                    record = {
+                        "ts": ts_iso, "hour": hour, "weekday": weekday,
+                        "u": u, "v": v, "k": k,
+                        "score": round(sc, 4),
+                        "highway": hw,
+                        "lanes": str(lanes),
+                        "maxspeed": str(maxspeed),
+                        "length": round(length, 1),
+                        "osmid": str(osmid),
+                        "capacity": round(cap, 3),
+                    }
+                    f.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+    except Exception as e:
+        print(f"訓練數據儲存錯誤: {e}")
 
 # =========================
 # 追蹤與影像處理
@@ -1017,6 +1183,7 @@ def main():
         return
 
     last_map_update_t = time.time()
+    last_save_t = time.time()
     last_ui_t = 0.0
     last_perf_t = time.time()
     total_frames_processed = 0
@@ -1027,17 +1194,26 @@ def main():
     while True:
         loop_start = time.time()
 
-        # Phase 0: 定期雲端 + 本地推播
+        # Phase 0: 定期推播 (每 5 秒)
         if (loop_start - last_map_update_t) > 5.0:
-            threading.Thread(
-                target=post_macau_traffic_data,
-                args=(states, CLOUD_API_URL), daemon=True,
-            ).start()
-            threading.Thread(
-                target=post_macau_traffic_data,
-                args=(states, LOCAL_API_URL), daemon=True,
-            ).start()
+            if PUSH_TO_WEBSITE:
+                threading.Thread(
+                    target=post_macau_traffic_data,
+                    args=(states, CLOUD_API_URL), daemon=True,
+                ).start()
+                threading.Thread(
+                    target=post_macau_traffic_data,
+                    args=(states, LOCAL_API_URL), daemon=True,
+                ).start()
             last_map_update_t = loop_start
+
+        # 訓練數據定時儲存 (每 SAVE_INTERVAL_SEC 秒)
+        if (loop_start - last_save_t) > SAVE_INTERVAL_SEC:
+            threading.Thread(
+                target=save_training_data,
+                args=(states,), daemon=True,
+            ).start()
+            last_save_t = loop_start
 
         # Phase 1: 收集畫面
         batch_items = []
